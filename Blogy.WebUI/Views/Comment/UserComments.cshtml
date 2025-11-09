@@ -1,0 +1,28 @@
+﻿@model List<ResultCommentDto>
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>UserComments</title>
+</head>
+<body>
+	@foreach (var item in Model)
+	{
+		<li class="comment">
+			<div class="vcard">
+				<img src="@item.User.ImageUrl" style="width:75px; height:75px" alt="Image placeholder">
+			</div>
+			<div class="comment-body">
+				<h3>@item.User.FullName</h3>
+				<div class="meta">@item.CreatedDate</div>
+				<p>@item.Content</p>
+			</div>
+		</li>
+	}
+</body>
+</html>

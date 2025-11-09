@@ -1,0 +1,25 @@
+﻿
+<!DOCTYPE html>
+<html lang="tr-TR">
+
+<head>
+	@await Component.InvokeAsync("_WriterHeadPartial")
+</head>
+<body>
+
+	<!-- ======= Header ======= -->
+	@await Component.InvokeAsync("_WriterHeaderPartial")
+
+	<!-- ======= Sidebar ======= -->
+	@await Component.InvokeAsync("_WriterSidebarPartial")
+
+	<main id="main" class="main">
+		@RenderBody()
+	</main>
+
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+	@await Component.InvokeAsync("_WriterScriptsPartial")
+
+</body>
+</html>

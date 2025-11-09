@@ -1,0 +1,44 @@
+﻿@model List<ResultUserDto>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Default/Index.cshtml";
+}
+
+<div class="pagetitle">
+	<h3>Kullanıcılar</h3>
+</div>
+
+@{
+	int count = 0;
+}
+
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>#</th>
+		<th>Ad Soyad</th>
+		<th>Kullanıcı Adı</th>
+		<th>Email</th>
+		<th>Roller</th>
+		<th>İşlemler</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		count++;
+		<tr>
+			<th>@count</th>
+			<td>@item.FullName</td>
+			<td>@item.UserName</td>
+			<td>@item.Email</td>
+			<td>
+				@foreach (var role in item.Roles)
+				{
+					<span class="badge text-bg-primary">@role</span> <br />
+				}
+			</td>
+			<td>
+				<a href="/Admin/Users/AssignRole/@item.Id" class="btn btn-outline-info">Rol Ata</a>
+			</td>
+		</tr>
+	}
+</table>

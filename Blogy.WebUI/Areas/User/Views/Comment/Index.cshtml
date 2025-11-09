@@ -1,0 +1,39 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Default/Index.cshtml";
+}
+
+<div class="pagetitle">
+	<h3>Yorumlar</h3>
+</div>
+
+@{
+	int count = 0;
+}
+
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>#</th>
+		<th>Blog Id</th>
+		<th>Yorum İçeriği</th>
+		<th>Yorum Durumu</th>
+		<th>İşlemler</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		count++;
+		<tr>
+			<th>@count</th>
+			<td>@item.Blog.Title</td>
+			<td>@item.Content</td>
+			<td>@item.CommentStatus</td>
+			<td>
+				<a href="/User/Comment/DeleteComment/@item.Id" class="btn btn-outline-danger">Sil</a>
+				<a href="/User/Comment/UpdateComment/@item.Id" class="btn btn-outline-info">Güncelle</a>
+			</td>
+		</tr>
+	}
+</table>
+<a href="/User/Comment/CreateComment" class="btn btn-outline-primary">Yeni Yorum Oluştur</a>

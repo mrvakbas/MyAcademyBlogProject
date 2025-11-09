@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Blogy.Business/Blogy.Business.csproj" />
+  <Project Path="Blogy.DataAccess/Blogy.DataAccess.csproj" />
+  <Project Path="Blogy.Entity/Blogy.Entity.csproj" />
+  <Project Path="Blogy.WebUI/Blogy.WebUI.csproj" />
+</Solution>

@@ -1,0 +1,21 @@
+﻿@model CreateContactDto
+<form method="post" asp-controller="Contacts" asp-action="CreateContact">
+	<div class="row">
+		<div class="col-6 mb-3">
+			<input type="text" class="form-control" asp-for="NameSurname" placeholder="Ad Soyad">
+		</div>
+		<div class="col-6 mb-3">
+			<input type="email" class="form-control" asp-for="Email" placeholder="Mail">
+		</div>
+		<div class="col-12 mb-3">
+			<input type="text" class="form-control" asp-for="Subject" placeholder="Konu">
+		</div>
+		<div class="col-12 mb-3">
+			<textarea  cols="30" rows="4" class="form-control" asp-for="Message" placeholder="Mesajınız"></textarea>
+		</div>
+
+		<div class="col-12">
+			<input type="submit" value="Gönder" class="btn btn-primary">
+		</div>
+	</div>
+</form>

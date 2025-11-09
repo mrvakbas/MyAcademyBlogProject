@@ -1,0 +1,38 @@
+﻿@model List<ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Default/Index.cshtml";
+}
+
+<div class="pagetitle">
+	<h3>Hakkımızda</h3>
+</div>
+@{
+	int count = 0;
+}
+
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>#</th>
+		<th>Başlık</th>
+		<th>Açıklama</th>
+		<th>Resim Link</th>
+		<th>İşlemler</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		count++;
+		<tr>
+			<th>@count</th>
+			<td>@item.Title</td>
+			<td>@item.Description</td>
+			<td>@item.ImageUrl</td>
+			<td>
+				<a href="/Admin/About/DeleteAbout/@item.Id" class="btn btn-outline-danger">Sil</a>
+				<a href="/Admin/About/UpdateAbout/@item.Id" class="btn btn-outline-info">Güncelle</a>
+			</td>
+		</tr>
+	}
+</table>
+<a href="/Admin/About/CreateAbout" class="btn btn-outline-primary">Yeni Hakkımda Oluştur</a>
