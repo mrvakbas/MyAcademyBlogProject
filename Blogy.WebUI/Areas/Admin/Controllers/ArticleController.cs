@@ -15,7 +15,7 @@ namespace Blogy.WebUI.Areas.Admin.Controllers
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
 		// Lütfen buraya kendi Gemini API Key'inizi yapıştırın
-		private readonly string _geminiApiKey = "AIzaSyCKa3nYh_sZel9SauIV3-ZFAP7YLnTB57I";
+		private readonly string _geminiApiKey = "";
 		private readonly string _geminiModel = "gemini-2.5-flash";
 
 		public ArticleController(IHttpClientFactory httpClientFactory)

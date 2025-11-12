@@ -57,7 +57,7 @@ namespace Blogy.WebUI.Controllers
 		private const string AutoReplySubject = "Blogy - Mesajınız Alındı";
 
 		// Gemini API Bilgileri
-		private readonly string _geminiApiKey = "AIzaSyBm0qPGLrsfHcpS3RJFfRm5qAJQ969fsNA";
+		private readonly string _geminiApiKey = "";
 		private readonly string _geminiEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
 		public IActionResult Index() => View();
