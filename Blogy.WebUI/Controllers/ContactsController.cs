@@ -53,7 +53,7 @@ namespace Blogy.WebUI.Controllers
 		private const string SmtpHost = "smtp.gmail.com";
 		private const int SmtpPort = 587;
 		private const string SmtpUsername = "merve.akba54@gmail.com";
-		private const string SmtpPassword = "eaxruurahdghexac";
+		private const string SmtpPassword = "";
 		private const string AutoReplySubject = "Blogy - Mesajınız Alındı";
 
 		// Gemini API Bilgileri
