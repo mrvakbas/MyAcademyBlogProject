@@ -5,6 +5,7 @@ using Blogy.WebUI.Filters;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient();
 builder.Services.AddServicesExt();
 builder.Services.AddRepositoriesExt(builder.Configuration);
 

@@ -1,0 +1,25 @@
+﻿@model Blogy.WebUI.Areas.Admin.Models.ArticleCreateViewModel
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Default/Index.cshtml";
+}
+
+<div class="pagetitle">
+	<h3>Makale Oluştur</h3>
+</div>
+
+<form method="post" asp-action="Index" asp-controller="Article">
+	<input asp-for="Topic" type="text" class="form-control" value="" placeholder="Makale oluşturmak isteginiz konuyu bir kaç kelime ile özetleyiniz (Yazılım, Araba, Spor vb.)" />
+
+	<button type="submit" class="btn btn-primary mt-3">Oluştur</button>
+</form>
+
+@if (ViewBag.GeneratedArticle != null)
+{
+	<div>
+		<h5>Oluşturulan Makale</h5>
+		<textarea class="mt-4 form-control" rows="15">
+        @ViewBag.GeneratedArticle
+    </textarea>
+	</div>
+}

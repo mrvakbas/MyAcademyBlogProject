@@ -8,5 +8,6 @@ namespace Blogy.Business.DTOs.ContactDtos
 		public string Email { get; set; }
 		public string Subject { get; set; }
 		public string Message { get; set; }
-	}
+        public string? AutoReplyContent { get; set; }
+    }
 }

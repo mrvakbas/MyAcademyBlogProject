@@ -1,0 +1,111 @@
+﻿
+@model List<Blogy.Business.DTOs.ContactDtos.ResultContactDto>
+
+@{
+    ViewData["Title"] = "İletişim Mesajları Yönetimi";
+    // Admin panelinizin ana layout dosyasını belirtin
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-envelope"></i> Gelen İletişim Mesajları ve Otomatik Cevaplar</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Gönderen</th>
+                        <th>Mail Adresi</th>
+                        <th>Konu</th>
+                        <th>Tarih</th>
+                        <th>Detay</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.NameSurname</td>
+                                <td>@item.Email</td>
+                                <td>@item.Subject</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info"
+                                            data-toggle="modal"
+                                            data-target="#messageModal_@item.Id">
+                                        <i class="fas fa-eye"></i> Gör
+                                    </button>
+                                </td>
+                                <td>
+                                    <a href="/Admin/Contact/DeleteContact/@item.Id"
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Bu mesajı silmek istediğinizden emin misiniz?');">
+                                        <i class="fas fa-trash"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <div class="modal fade" id="messageModal_@item.Id" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title" id="messageModalLabel">Mesaj Detayı: @item.Subject</h5>
+                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <p class="mb-1"><strong>Gönderen:</strong> @item.NameSurname</p>
+                                            <p class="mb-1"><strong>Mail:</strong> <a href="mailto:@item.Email">@item.Email</a></p>
+         
+
+                                            <hr>
+
+                                            <h6 class="text-info"><i class="fas fa-comment-dots"></i> Orijinal Mesaj:</h6>
+                                            <blockquote class="blockquote bg-light p-3 border-left-info border-3">
+                                                <p class="mb-0">@item.Message</p>
+                                            </blockquote>
+
+                                            <hr>
+
+                                            <h6 class="text-success"><i class="fas fa-robot"></i> Gemini Otomatik Cevap Taslağı:</h6>
+                                            @if (!string.IsNullOrEmpty(item.AutoReplyContent))
+                                            {
+                                                <div class="alert alert-success p-3" role="alert" style="white-space: pre-wrap;">
+                                                    @Html.Raw(item.AutoReplyContent.Replace("\n", "<br/>"))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="alert alert-warning" role="alert">
+                                                    ⚠️ Otomatik cevap oluşturulamadı veya bu kayıt Gemini entegrasyonundan önce yapılmış.
+                                                </div>
+                                            }
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted p-5">Henüz gelen bir iletişim mesajı bulunmamaktadır.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

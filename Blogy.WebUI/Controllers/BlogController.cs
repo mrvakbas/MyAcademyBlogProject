@@ -58,7 +58,7 @@ namespace Blogy.WebUI.Controllers
 			//Toxic Bert Api Analizi
 			using (var client = new HttpClient())
 			{
-				var apiKey = "";
+				var apiKey = "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";
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
 				try

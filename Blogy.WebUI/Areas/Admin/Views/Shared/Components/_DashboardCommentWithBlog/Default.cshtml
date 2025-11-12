@@ -1,0 +1,46 @@
+﻿@model List<Blogy.WebUI.Areas.Admin.Models.CommentCountWithBlogViewModel>
+@using Newtonsoft.Json
+
+@{
+    var chartLabels = Model.Select(x => x.BlogTitle).ToList();
+    var chartCounts = Model.Select(x => x.CommentCount).ToList();
+}
+
+<h4 class="card-title text-center mb-3">Bloglara Göre Yorum Sayısı</h4>
+
+<canvas id="comments-chart" style="width: 275px; height: 300px; margin: 0 auto;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const commentChartLabels = @Html.Raw(JsonConvert.SerializeObject(chartLabels));
+    const commentChartCounts = @Html.Raw(JsonConvert.SerializeObject(chartCounts));
+
+    const commentChartCtx = document.getElementById('comments-chart').getContext('2d');
+    new Chart(commentChartCtx, {
+        type: 'doughnut',
+        data: {
+            labels: commentChartLabels,
+            datasets: [{
+                label: 'Yorum Sayısı',
+                data: commentChartCounts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)'
+                ],
+                borderColor: '#fff',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>

@@ -14,6 +14,7 @@ namespace Blogy.WebUI.Areas.Admin.Controllers
 			ViewBag.categoryCount = _context.Categories.Count();
 			ViewBag.blogCount = _context.Blogs.Count();
 			ViewBag.userCount = _context.Users.Count();
+			ViewBag.messageCount = _context.Contacts.Count();
 			return View();
 		}
 	}
