@@ -72,14 +72,37 @@ namespace Blogy.WebUI.Controllers
 			{
 				string autoReply = string.Empty;
 
+				// **YENİ: Konuya Göre Prompt Seçimi ve Ön Hazırlık Metni**
+				string subjectCategory = createContactDto.Subject?.ToLowerInvariant() ?? string.Empty;
+				string contextText = string.Empty;
+
+				// Anahtar kelimelere göre içeriği belirleme
+				if (subjectCategory.Contains("işbirliği") || subjectCategory.Contains("reklam"))
+				{
+					contextText = "İşbirliği ve reklam teklifiniz için teşekkür ederiz. İlgili ekibimiz talebinizi inceleyecek ve en kısa sürede size geri dönecektir.";
+				}
+				else if (subjectCategory.Contains("öneri") || subjectCategory.Contains("geri bildirim"))
+				{
+					contextText = "Geri bildirim ve öneriniz için teşekkür ederiz. Görüşleriniz sitemizi geliştirmemiz için çok değerlidir ve dikkate alınacaktır.";
+				}
+				else if (subjectCategory.Contains("hata") || subjectCategory.Contains("sorun"))
+				{
+					contextText = "Sitede karşılaştığınız teknik sorunla ilgili mesajınız için teşekkür ederiz. Teknik ekibimiz sorunu en kısa sürede inceleyecektir.";
+				}
+				else // Genel veya diğer konular
+				{
+					contextText = "Mesajınız için teşekkür ederiz. İlgili ekibimiz en kısa sürede sizinle iletişime geçecektir.";
+				}
+
 				// 1. Gemini API İşlemi (Otomatik Cevap Oluşturma)
 				try
 				{
-					// Yeni ve daha kısa Prompt
+					// Konuya özel içeriği prompt'a dahil etme
 					string prompt = $"""
-                        Aşağıdaki Konu ve Mesaj içeriğine dayanarak, kullanıcının mesajı için teşekkür eden, 
-                        mesajına atıfta bulunan ve kısa süre içinde kendisiyle iletişime geçileceğini belirten, 
-                        nazik ve kısa bir otomatik cevap taslağı oluştur. Cevabınız sadece otomatik cevap metni içermelidir.
+                        Aşağıdaki Konu ve Mesaj içeriğine dayanarak, kullanıcının mesajı için teşekkür eden,
+                        mesajına atıfta bulunan, {contextText} bilgisini içeren ve nazik bir dille kısa süre içinde
+                        kendisiyle iletişime geçileceğini belirten, **nazik ve kısa bir otomatik cevap taslağı** oluştur.
+                        Cevabınız sadece otomatik cevap metni içermelidir.
                         
                         Konu: {createContactDto.Subject}
                         Mesaj: {createContactDto.Message}
@@ -109,7 +132,7 @@ namespace Blogy.WebUI.Controllers
 				catch (Exception ex)
 				{
 					Console.WriteLine($"Gemini API (HTTP) hatası: {ex.Message}");
-					autoReply = "Mesajınız başarıyla alınmıştır. En kısa sürede size geri dönüş yapacağız. Anlayışınız için teşekkür ederiz.";
+					autoReply = $"Mesajınız başarıyla alınmıştır. {contextText} Anlayışınız için teşekkür ederiz.";
 				}
 
 				// 2. Oluşturulan cevabı DTO'ya atama ve Veritabanına kaydetme
@@ -119,6 +142,7 @@ namespace Blogy.WebUI.Controllers
 				// 3. KULLANICIYA OTOMATİK CEVAP E-POSTASI GÖNDERME
 				try
 				{
+					// E-posta gönderme kısmı önceki kodunuzla aynı
 					using (var mail = new MailMessage())
 					{
 						mail.From = new MailAddress(SmtpUsername, "Blogy");

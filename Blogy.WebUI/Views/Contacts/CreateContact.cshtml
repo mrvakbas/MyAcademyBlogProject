@@ -8,10 +8,18 @@
 			<input type="email" class="form-control" asp-for="Email" placeholder="Mail">
 		</div>
 		<div class="col-12 mb-3">
-			<input type="text" class="form-control" asp-for="Subject" placeholder="Konu">
+			<select class="form-control" asp-for="Subject">
+				<option value="">Konu Seçiniz *</option>
+				<option value="Genel Soru / İletişim Talebi">Genel Soru / İletişim Talebi</option>
+				<option value="İş Birliği ve Reklam Teklifi">İş Birliği ve Reklam Teklifi</option>
+				<option value="Teknik Hata Bildirimi">Teknik Hata Bildirimi</option>
+				<option value="İçerik Önerisi ve Geri Bildirim">İçerik Önerisi ve Geri Bildirim</option>
+				<option value="Konuk Yazar Başvurusu">Konuk Yazar Başvurusu</option>
+			</select>
 		</div>
+
 		<div class="col-12 mb-3">
-			<textarea  cols="30" rows="4" class="form-control" asp-for="Message" placeholder="Mesajınız"></textarea>
+			<textarea cols="30" rows="4" class="form-control" asp-for="Message" placeholder="Mesajınız"></textarea>
 		</div>
 
 		<div class="col-12">
